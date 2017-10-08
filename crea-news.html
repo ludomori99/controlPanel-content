@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Pannello Di Controllo</title>
+	<style type="text/css">
+		.main{
+			padding:50px;
+			border: 1px solid #d9e6f2;
+			margin: 100px;
+		}	   
+		.btn-invia{
+			margin-top: 30px;
+			margin-bottom: 30px;
+			display: block;
+		}
+		#title-Input {
+			font-size: 30px;
+			width: 90%;
+			padding: 1%;
+			border: none;
+			outline: none;
+			text-align:center;
+			margin: 5% 5% 2%;
+		}
+		#content-Input {
+			font-size: 20px;
+			font-family: 'Open Sans', sans-serif;
+			border:0;
+			outline:none;
+			padding: 2% 0 0 5%;
+			margin: 0 0 0 10%;
+			width: 80%;
+			
+		}
+		.select-form{
+			margin: 60px 0;
+			display: block;
+		}	
+		.select-image{
+			color:rgba(0, 0, 0, 0.6);
+			margin-bottom: 3%;
+			display: inline-block;
+			font-family: sans-serif;
+		}
+		.select-image-input{
+			display: inline-block;
+			margin-left: 50px;
+		}
+		.select-div{
+			margin-left: 5%;
+		}
+		#charNum, #charNum2{
+			margin-left: 50px;
+			font-family: sans-serif;
+		}
+	</style>
+</head>
+<body>
+	<div class="main">
+		<form method = 'POST' action ='' id="myform" enctype="multipart/form-data">
+	  	    <textarea required = True type="text" id="title-Input" placeholder="Titolo" form ="myform" ></textarea><div id="charNum"></div> 
+		    <textarea required = True type="text" id="content-Input" placeholder="Contenuto" form ="myform"></textarea><div id="charNum2"></div>
+		    <div class="select-div">
+			    <select form ="myform" required = True class="select-form">
+			  	    <option disabled selected value> -- seleziona una categoria -- </option>
+				    <option value = "Categoria">Categoria</option>
+				    <option value = "Categoria">Categoria</option>
+				    <option value = "Categoria">Categoria</option>
+				    <option value = "Categoria">Categoria</option>
+			    </select>
+			    <h3 class="select-image"> choose a cover image: </h3>
+			    <input class='select-image-input' type="file" required = True form="myform" />
+			    <input type="submit" value ="Pubblica Articolo" class="btn-invia" />
+		    </div>
+	    </form>
+	</div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>
+		    			            //char number
+		$(document).ready(function() {	
+			$('#title-Input').keyup(function () {
+				var len = $(this).val().length;
+				$('#charNum').text(len + ' caratteri');
+			});
+
+			$('#content-Input').keyup(function () {
+				var len = $(this).val().length;
+				$('#charNum2').text(len + ' caratteri');
+			});
+			
+			
+		         // auto height
+
+			$(function () {
+				$("textarea").each(function () {
+					this.style.height = (this.scrollHeight+10)+'px';
+				});
+			});
+
+			function autoresize(textarea) {
+				textarea.style.height = '0px';     //Reset height, so that it not only grows but also shrinks
+				textarea.style.height = (textarea.scrollHeight+10) + 'px';    //Set new height
+			}
+
+
+			$('#content-Input').keyup(function () {
+				var tempScrollTop = $(document).scrollTop(); // solve jump bug and "modifying previous content" bug
+				autoresize(this);
+				$(document).scrollTop(tempScrollTop);        // solve jump bug and "modifying previous content" bug 
+			});
+			$('#title-Input').keyup(function () {
+				var tempScrollTop = $(document).scrollTop(); // solve jump bug and "modifying previous content" bug
+				autoresize(this);
+				$(document).scrollTop(tempScrollTop);        // solve jump bug and "modifying previous content" bug 
+			});
+		});
+    </script>
+</body>
+</html>
